@@ -25,7 +25,7 @@ neo4j-admin database import full --overwrite-destination --id-type=integer --nod
 
 ## for permission problem on data dir (probably only wsl users)
 """
-sudo chmod -R 777 data
+sudo chmod -R 777 import_to_docker
 """
 ## Cities
 The dataset is picked from https://grouplens.org/datasets/movielens/latest/
