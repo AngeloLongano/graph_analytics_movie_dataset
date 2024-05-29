@@ -1,25 +1,65 @@
 ## Graph analytics on a 
 
+## Preprocessing data
+First preprocessing is done by python with pandas on preprocessing.ipynb  
+...  
+In this file there's also a formatting header and check for data quality to an effecienty import.
+It was used neo4j-admin import for importing data to neo4j db because the size of data is very large and classical way is not enough effeciency. All this is also motivated in the [docs](https://neo4j.com/docs/getting-started/data-import/csv-import/#_ways_to_import_csv_files)
 
-# Drop all index and constraints
-"""
+## Import data with neo4j-admin
+The next steps are based by the documentations [docs](https://neo4j.com/docs/operations-manual/current/tools/neo4j-admin/neo4j-admin-import/#import-tool-full) and [this tutorial](https://neo4j.com/docs/operations-manual/current/tutorial/neo4j-admin-import/)
+
+### To import data
+
+Start docker:
+```
+docker compose -d
+```
+
+Go to the container's shell
+
+```
+ docker exec -it neo4j_server /bin/bash
+```
+
+After that, you can use neo4j-admin command  
+(note: I didn't find a way to import data on a new database, I tried many times in many ways but in my workstation didn't work)  
+```
+neo4j-admin database import full --overwrite-destination --id-type=integer --nodes=import/users.csv --nodes=import/movies.csv --nodes=import/genres.csv --relationships=import/ratings.csv --relationships=import/tags.csv --relationships=import/movies_genres.csv 
+```
+with movies database
+```
+neo4j-admin database import full --overwrite-destination --id-type=integer --nodes=import/users.csv --nodes=import/movies.csv --nodes=import/genres.csv --relationships=import/ratings.csv --relationships=import/tags.csv --relationships=import/movies_genres.csv movies
+```
+
+After that the result output should be that:  
+IMAGE 
+
+For consistency check you can run this command:
+```
+neo4j-admin database check neo4j
+```
+
+## Neo4j Graph Analytics
+#### Little tips
+Drop all index and constraints
+```
 CALL apoc.schema.assert({},{},true) YIELD label, key
 RETURN *
-"""
-# Drop data 
-"""
+```
+Drop data 
+```
 MATCH (n) DETACH DELETE n;
-"""
+```
 
-docker exec -it neo4j_server /bin/bash
 
-neo4j-admin database import full
---nodes=User=import/users.csv
---nodes=Movie=import/movies.csv \
---relationships import/ratings.csv,import/tags.csv,import/genres.csv \
-movies
 
-neo4j-admin database import full --overwrite-destination --id-type=integer --nodes=import/users.csv --nodes=import/movies.csv --nodes=import/genres.csv --relationships=import/ratings.csv --relationships=import/tags.csv --relationships=import/movies_genres.csv movies
+FUNZIONAAA
+# TODO: capire come formattare le date
+# TODO: capire come accedere al db dopo l'import
+# guarda gemini
+# ricorda di savare i file risultanti dal notebook e non far girare sempre la stessa roba
+# TODO: change string to datetime header
 
 # TODO: change files to import
 
@@ -30,5 +70,5 @@ sudo chmod -R 777 import_to_docker
 ## Cities
 The dataset is picked from https://grouplens.org/datasets/movielens/latest/
 
-download the datasets and put on dataset dir "https://files.grouplens.org/datasets/movielens/ml-latest.zip"
+You can download the datasets [here](https://files.grouplens.org/datasets/movielens/ml-latest.zip)
 
