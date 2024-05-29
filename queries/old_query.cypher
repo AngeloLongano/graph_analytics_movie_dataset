@@ -31,6 +31,11 @@ LOAD CSV WITH HEADERS
         m.year = toInteger(row.year);
 
 // Create index 
+CREATE INDEX ON :Movie(title);
+CREATE INDEX ON :User(name);
+CREATE INDEX ON :Genre(name);
+
+CREATE LOOKUP INDEX node_label_lookup IF NOT EXISTS FOR  ON EACH labels(n);
 // ...
 
 // Insert relationships
@@ -42,7 +47,7 @@ LOAD CSV WITH HEADERS FROM "file:///ratings.csv" AS row
         MERGE (u)-[r:RATED]->(m)
         SET r.rating = toFloat(row.rating),
         r.timestamp = datetime({epochSeconds:toInteger(row.timestamp)})
-    } IN TRANSACTIONS OF 100000 ROWS;
+    } IN TRANSACTIONS OF 10000 ROWS;
 
 LOAD CSV WITH HEADERS FROM "file:///tags.csv" AS row
     CALL {
@@ -52,7 +57,7 @@ LOAD CSV WITH HEADERS FROM "file:///tags.csv" AS row
         MERGE (u)-[t:TAGGED]->(m)
         SET t.tag = row.tag,
         t.timestamp = datetime({epochSeconds:toInteger(row.timestamp)})
-    } IN TRANSACTIONS OF 100000 ROWS;
+    } IN TRANSACTIONS OF 10000 ROWS;
 
 LOAD CSV WITH HEADERS FROM "file:///movies_genres.csv" AS row
     MATCH (m:Movie {id: toInteger(row.movieId)})
