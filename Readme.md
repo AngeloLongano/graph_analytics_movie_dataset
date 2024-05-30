@@ -22,18 +22,15 @@ Go to the container's shell
  docker exec -it neo4j_server /bin/bash
 ```
 
-After that, you can use neo4j-admin command  
-(note: I didn't find a way to import data on a new database, I tried many times in many ways but in my workstation didn't work)  
+After that, you can use neo4j-admin command 
 ```
-neo4j-admin database import full --overwrite-destination --id-type=integer --nodes=import/users.csv --nodes=import/movies.csv --nodes=import/genres.csv --relationships=import/ratings.csv --relationships=import/tags.csv --relationships=import/movies_genres.csv
-```
-with movies database
-```
-neo4j-admin database import full --overwrite-destination --id-type=integer --nodes=import/users.csv --nodes=import/movies.csv --nodes=import/genres.csv --relationships=import/ratings.csv --relationships=import/tags.csv --relationships=import/movies_genres.csv movies
+neo4j-admin database import full movies --overwrite-destination --id-type=integer --nodes import/users.csv import/movies.csv import/genres.csv --relationships import/ratings.csv import/movies_genres.csv
 ```
 
+Restart docker container and you will see movies database with data.
+
 After that the result output should be that:  
-IMAGE 
+![alt text](image-1.png)
 
 For consistency check you can run this command:
 ```
@@ -70,5 +67,5 @@ sudo chmod -R 777 import_to_docker
 ## Cities
 The dataset is picked from https://grouplens.org/datasets/movielens/latest/
 
-You can download the datasets [here](https://files.grouplens.org/datasets/movielens/ml-latest.zip)
+You can download the datasets [here](https://files.grouplens.org/datasets/movielens/ml-1m.zip)
 
