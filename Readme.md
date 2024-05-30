@@ -25,7 +25,7 @@ Go to the container's shell
 After that, you can use neo4j-admin command  
 (note: I didn't find a way to import data on a new database, I tried many times in many ways but in my workstation didn't work)  
 ```
-neo4j-admin database import full --overwrite-destination --id-type=integer --nodes=import/users.csv --nodes=import/movies.csv --nodes=import/genres.csv --relationships=import/ratings.csv --relationships=import/tags.csv --relationships=import/movies_genres.csv 
+neo4j-admin database import full --overwrite-destination --id-type=integer --nodes=import/users.csv --nodes=import/movies.csv --nodes=import/genres.csv --relationships=import/ratings.csv --relationships=import/tags.csv --relationships=import/movies_genres.csv
 ```
 with movies database
 ```

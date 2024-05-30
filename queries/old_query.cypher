@@ -63,3 +63,20 @@ LOAD CSV WITH HEADERS FROM "file:///movies_genres.csv" AS row
     MATCH (m:Movie {id: toInteger(row.movieId)})
     MATCH (g:Genre {id: toInteger(row.genreId)})
     MERGE (m)-[in_g:IN_GENRE]->(g);
+
+
+CALL apoc.periodic.iterate(
+  "MATCH (u:User)-[t:TAGGED]->(m:Movie) RETURN t",
+  "SET t.date = datetime({epochSeconds: toInteger(t.timestamp)})",
+  {batchSize: 10000, parallel: true}
+)
+YIELD total, batches, failedBatches, retries, errorMessages
+RETURN total, batches, failedBatches, retries, errorMessages;
+
+CALL apoc.periodic.iterate(
+  "MATCH (u:User)-[t:TAGGED]->(m:Movie) RETURN t",
+  "SET t.date = datetime({epochSeconds: toInteger(t.timestamp)})",
+  {batchSize: 10000, parallel: true}
+)
+YIELD total, batches, failedBatches, retries, errorMessages
+RETURN total, batches, failedBatches, retries, errorMessages;
