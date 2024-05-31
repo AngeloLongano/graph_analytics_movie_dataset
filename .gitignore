@@ -1,5 +1,3 @@
 clean_data
 dataset
 docker_import
-
-.env
