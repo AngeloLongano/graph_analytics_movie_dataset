@@ -1,27 +1,22 @@
-## Graph analytics on a Movies datasets
+# Graph analytics on a Movies datasets
 
-## Preprocessing data
-First preprocessing is done by python with pandas on preprocessing.ipynb  
-...  
-In this file there's also a formatting header and check for data quality to an effecienty import.
-It was used neo4j-admin import for importing data to neo4j db because the size of data is very large and classical way is not enough effeciency. All this is also motivated in the [docs](https://neo4j.com/docs/getting-started/data-import/csv-import/#_ways_to_import_csv_files)
+In this project, Graph analytics was performed on a [group lens](https://grouplens.org) dataset of movie reviews.  
+The workflow of project is:
+- Preprocessing and prepare data to import in a Neo4j server [0_preprocessing](0_preprocessing.ipynb)
+- Import data with neo4j-admin [1_import](1_import.ipynb) (or classical way [1_classical_import](1_classical_import.ipynb))
+- Explore data, analyze graph structure and add some information on graph [2_exploratory_analysis](2_exploratory_analysis.ipynb)
+- Create a Recommendation Systems by a similarity analysis and a community detection [3_research_questions](3_research_questions.ipynb)
 
-## Import data with neo4j-admin
-The next steps are based by the documentations [docs](https://neo4j.com/docs/operations-manual/current/tools/neo4j-admin/neo4j-admin-import/#import-tool-full) and [this tutorial](https://neo4j.com/docs/operations-manual/current/tutorial/neo4j-admin-import/)
+## Technical information
+Docker was used in the project and the steps to configure and use it are indicated in the notebook. For more information look in the [documentation](https://docs.docker.com/get-docker/).
 
-
-
-## Neo4j Graph Analytics
-#### Little tips
-Drop all index and constraints
-```
-CALL apoc.schema.assert({},{},true) YIELD label, key
-RETURN *
-```
-Drop data 
-```
-MATCH (n) DETACH DELETE n;
-```
+The python libraries were used:
+- pandas
+- numpy
+- scipy
+- matplotlib
+- neo4j
+- graphdatascience
 
 ## Cities
 The dataset is picked from https://grouplens.org/datasets/movielens/latest/
