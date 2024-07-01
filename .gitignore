@@ -1,3 +1,4 @@
 clean_data
 dataset
 docker_import
+__pycache__
