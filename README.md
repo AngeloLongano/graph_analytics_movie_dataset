@@ -23,3 +23,6 @@ The dataset is picked from [GroupLens.org](https://grouplens.org/datasets/moviel
 
 You can download the datasets [here](https://files.grouplens.org/datasets/movielens/ml-1m.zip)
 
+This project is also available on [github](https://github.com/AngeloLongano/graph_analytics_movie_dataset). 
+
+
